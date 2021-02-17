@@ -5,7 +5,7 @@ import datetime
 from cv2 import cv2
 
 
-TOKEN = "ODA3ODk5NjUyNTg5ODc5MzE3.YB-tLw.EIKLPPxJ-VKmLNNfo4s-Kon-y3g"
+TOKEN = "YOUR_BOT_TOKEN"
 
 client = discord.Client()
 
