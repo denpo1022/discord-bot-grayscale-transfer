@@ -74,21 +74,25 @@ async def grayscale_video(file_path):
     return "ass_" + file_path
 
 
-# When the bot is ready, execution is from the section below
+# When the bot is ready, execution will start from on_ready()
 @client.event
 async def on_ready():
     print("We have logged in as {0.user}".format(client))
 
 
-# This part will be executed when receive message
+# This section will be executed when the bot receives message
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
 
-    # Save every attachments that is mp4 file
+    # Save every attachments that is mp4 or jpeg file
     for attachment in message.attachments:
+
+        # If the attachment is mp4 file
         if attachment.filename.lower().endswith("mp4"):
+
+            # Save the mp4 at local temporary
             await attachment.save(attachment.filename)
 
             # Transfer the video into grayscale
@@ -97,15 +101,22 @@ async def on_message(message):
             # Send the video file after processing
             await message.channel.send(file=discord.File(ass_video_path), content="")
 
+            # Remove the temporary file
             os.remove(ass_video_path)
 
+        # If the attachment is jpeg file
         elif attachment.filename.lower().endswith("jpeg"):
+
+            # Save the jpeg at local temporary
             await attachment.save(attachment.filename)
 
+            # Transfer the image into grayscale
             ass_img_path = await grayscale_pic(attachment.filename)
 
+            # Send the image file after processing
             await message.channel.send(file=discord.File(ass_img_path), content="")
 
+            # Remove the temporary file
             os.remove(ass_img_path)
 
 
