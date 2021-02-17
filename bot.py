@@ -3,9 +3,11 @@ import time
 import os
 import datetime
 from cv2 import cv2
+from dotenv import load_dotenv
 
 
-TOKEN = "YOUR_BOT_TOKEN"
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
 
 client = discord.Client()
 
